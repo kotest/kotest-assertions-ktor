@@ -15,10 +15,6 @@ object Libs {
       private const val version = "1.5.1"
       const val serverCore = "io.ktor:ktor-server-core:$version"
       const val serverTestHost = "io.ktor:ktor-server-test-host:$version"
-      const val clientJs = "io.ktor:ktor-client-js:$version"
       const val clientCore = "io.ktor:ktor-client-core:$version"
-      const val clientCoreJvm = "io.ktor:ktor-client-core-jvm:$version"
-      const val clientCioJvm = "io.ktor:ktor-client-cio-jvm:$version"
-      const val clientApache = "io.ktor:ktor-client-apache:$version"
    }
 }
