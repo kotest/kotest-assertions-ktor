@@ -48,7 +48,7 @@ kotlin {
          }
       }
 
-      js {
+      js(IR) {
          browser()
          nodejs()
       }
