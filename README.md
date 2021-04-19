@@ -11,3 +11,10 @@ Please create issues on the main kotest [board](https://github.com/kotest/kotest
 ![GitHub](https://img.shields.io/github/license/kotest/kotest-assertions-ktor)
 [![kotest @ kotlinlang.slack.com](https://img.shields.io/static/v1?label=kotlinlang&message=kotest&color=blue&logo=slack)](https://kotlinlang.slack.com/archives/CT0G9SD7Z)
 [<img src="https://img.shields.io/nexus/s/https/oss.sonatype.org/io.kotest.extensions/kotest-assertions-ktor.svg?label=latest%20snapshot"/>](https://oss.sonatype.org/content/repositories/snapshots/io/kotest/extensions/kotest-assertions-ktor/)
+
+## Changelog
+
+### 1.0.2
+
+* Added IR build for JS
+* Updated to Ktor 1.5.3
