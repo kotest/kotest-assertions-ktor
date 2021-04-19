@@ -14,7 +14,7 @@ Please create issues on the main kotest [board](https://github.com/kotest/kotest
 
 ## Changelog
 
-### 1.0.2
+### 1.0.1
 
 * Added IR build for JS
 * Updated to Ktor 1.5.3
