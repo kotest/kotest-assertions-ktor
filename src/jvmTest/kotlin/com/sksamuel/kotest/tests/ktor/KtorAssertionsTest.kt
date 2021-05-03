@@ -1,10 +1,6 @@
 package com.sksamuel.kotest.tests.ktor
 
-import io.kotest.assertions.ktor.shouldHaveContent
-import io.kotest.assertions.ktor.shouldHaveContentType
-import io.kotest.assertions.ktor.shouldHaveCookie
-import io.kotest.assertions.ktor.shouldHaveHeader
-import io.kotest.assertions.ktor.shouldHaveStatus
+import io.kotest.assertions.ktor.*
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
@@ -63,6 +59,10 @@ class KtorAssertionsTest : StringSpec({
             shouldThrow<AssertionError> {
                response.shouldHaveHeader("fail_name", "fail_value")
             }.message shouldBe "Response should have header fail_name=fail_value but fail_name=null"
+
+            shouldThrow<AssertionError> {
+               response.shouldNotHaveHeader("wibble", "wobble")
+            }.message shouldBe "Response should not have header wibble=wobble"
          }
       }
    }
@@ -97,6 +97,10 @@ class KtorAssertionsTest : StringSpec({
             shouldThrow<AssertionError> {
                response.shouldHaveContentType(ContentType.Any)
             }.message shouldBe "Response should have ContentType */* but was text/plain; charset=UTF-8"
+
+            shouldThrow<AssertionError> {
+               response.shouldNotHaveContentType(ContentType.Text.Plain.withCharset(Charset.forName("UTF8")))
+            }.message shouldBe "Response should not have ContentType text/plain; charset=UTF-8"
          }
       }
    }
