@@ -46,7 +46,7 @@ fun haveContentType(contentType: ContentType) = object : Matcher<TestApplication
    override fun test(value: TestApplicationResponse): MatcherResult {
       return MatcherResult(
          value.contentType() == contentType,
-         "Response should have ContentType $contentType= but was ${value.contentType()}",
+         "Response should have ContentType $contentType but was ${value.contentType()}",
          "Response should not have ContentType $contentType"
       )
    }

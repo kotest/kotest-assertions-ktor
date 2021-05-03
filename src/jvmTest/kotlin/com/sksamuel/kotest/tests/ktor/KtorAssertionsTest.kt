@@ -18,8 +18,7 @@ import io.ktor.http.withCharset
 import io.ktor.request.uri
 import io.ktor.response.header
 import io.ktor.response.respondText
-import io.ktor.server.testing.handleRequest
-import io.ktor.server.testing.withTestApplication
+import io.ktor.server.testing.*
 import java.nio.charset.Charset
 
 fun Application.testableModule() {
@@ -92,6 +91,15 @@ class KtorAssertionsTest : StringSpec({
       }
    }
 
+   "test content type fail" {
+      withTestApplication({ testableModule() }) {
+         handleRequest(HttpMethod.Get, "/").apply {
+            shouldThrow<AssertionError> {
+               response.shouldHaveContentType(ContentType.Any)
+            }.message shouldBe "Response should have ContentType */* but was text/plain; charset=UTF-8"
+         }
+      }
+   }
 
    "test null response doesn't end with KotlinNullpointerException" {
       withTestApplication({ testableModule() }) {
