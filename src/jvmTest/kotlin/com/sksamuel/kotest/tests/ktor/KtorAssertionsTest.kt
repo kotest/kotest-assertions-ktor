@@ -1,6 +1,12 @@
 package com.sksamuel.kotest.tests.ktor
 
-import io.kotest.assertions.ktor.*
+import io.kotest.assertions.ktor.shouldHaveContent
+import io.kotest.assertions.ktor.shouldHaveContentType
+import io.kotest.assertions.ktor.shouldHaveCookie
+import io.kotest.assertions.ktor.shouldHaveHeader
+import io.kotest.assertions.ktor.shouldHaveStatus
+import io.kotest.assertions.ktor.shouldNotHaveContentType
+import io.kotest.assertions.ktor.shouldNotHaveHeader
 import io.kotest.assertions.throwables.shouldThrow
 import io.kotest.core.spec.style.StringSpec
 import io.kotest.matchers.shouldBe
@@ -14,7 +20,8 @@ import io.ktor.http.withCharset
 import io.ktor.request.uri
 import io.ktor.response.header
 import io.ktor.response.respondText
-import io.ktor.server.testing.*
+import io.ktor.server.testing.handleRequest
+import io.ktor.server.testing.withTestApplication
 import java.nio.charset.Charset
 
 fun Application.testableModule() {
