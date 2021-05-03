@@ -58,6 +58,16 @@ class KtorAssertionsTest : StringSpec({
       }
    }
 
+   "test headers matcher fail" {
+      withTestApplication({ testableModule() }) {
+         handleRequest(HttpMethod.Get, "/").apply {
+            shouldThrow<AssertionError> {
+               response.shouldHaveHeader("fail_name", "fail_value")
+            }.message shouldBe "Response should have header fail_name=fail_value but fail_name=null"
+         }
+      }
+   }
+
    "test content matcher" {
       withTestApplication({ testableModule() }) {
          handleRequest(HttpMethod.Get, "/").apply {

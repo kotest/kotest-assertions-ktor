@@ -58,8 +58,8 @@ fun haveHeader(headerName: String, headerValue: String) = object : Matcher<TestA
    override fun test(value: TestApplicationResponse): MatcherResult {
       return MatcherResult(
          value.headers[headerName] == headerValue,
-         "Response should have header $headerName=$value but $headerName=${value.headers[headerName]}",
-         "Response should not have header $headerName=$value"
+         "Response should have header $headerName=$headerValue but $headerName=${value.headers[headerName]}",
+         "Response should not have header $headerName=$headerValue"
       )
    }
 }
