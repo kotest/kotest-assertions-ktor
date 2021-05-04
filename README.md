@@ -14,7 +14,11 @@ Please create issues on the main kotest [board](https://github.com/kotest/kotest
 
 ## Changelog
 
-### 1.0.1
+### 1.0.2
 
-* Added IR build for JS
+* Fixed error message when testing header values #2
+
+### 1.0.1
+ 
+* Added IR build for JS #1
 * Updated to Ktor 1.5.3
