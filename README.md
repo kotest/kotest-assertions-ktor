@@ -14,6 +14,10 @@ Please create issues on the main kotest [board](https://github.com/kotest/kotest
 
 ## Changelog
 
+### 1.0.3
+
+* Added matchers for Cache-Control, Content-Encoding and ETag 
+
 ### 1.0.2
 
 * Fixed error message when testing header values #2
