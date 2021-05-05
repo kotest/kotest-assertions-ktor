@@ -6,20 +6,60 @@ import io.kotest.matchers.should
 import io.kotest.matchers.shouldNot
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.ContentType
+import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpProtocolVersion
 import io.ktor.http.HttpStatusCode
 import io.ktor.http.contentType
+
+infix fun HttpResponse.shouldHaveETag(etag: String) = this should haveETag(etag)
+infix fun HttpResponse.shouldNotHaveETag(etag: String) = this shouldNot haveETag(etag)
+fun haveETag(expected: String) = object : Matcher<HttpResponse> {
+   override fun test(value: HttpResponse): MatcherResult {
+      val actual = value.headers[HttpHeaders.ETag]
+      return MatcherResult(
+         actual == expected,
+         "Response should have ETag $expected but had ${actual}. Response body: ${value.content}",
+         "Response should not have ETag $expected. Response body: ${value.content}"
+      )
+   }
+}
+
+infix fun HttpResponse.shouldHaveCacheControl(cacheControl: String) = this should haveCacheControl(cacheControl)
+infix fun HttpResponse.shouldNotCacheControl(cacheControl: String) = this shouldNot haveCacheControl(cacheControl)
+fun haveCacheControl(expected: String) = object : Matcher<HttpResponse> {
+   override fun test(value: HttpResponse): MatcherResult {
+      val actual = value.headers[HttpHeaders.CacheControl]
+      return MatcherResult(
+         actual == expected,
+         "Response should have Cache-Control: $expected but had: ${actual}. Response body: ${value.content}",
+         "Response should not have Cache-Control $expected. Response body: ${value.content}"
+      )
+   }
+}
+
+infix fun HttpResponse.shouldHaveContentEncoding(encoding: String) = this should haveContentEncoding(encoding)
+infix fun HttpResponse.shouldNotHaveContentEncoding(encoding: String) = this shouldNot haveContentEncoding(encoding)
+fun haveContentEncoding(expected: String) = object : Matcher<HttpResponse> {
+   override fun test(value: HttpResponse): MatcherResult {
+      val actual = value.headers[HttpHeaders.ContentEncoding]
+      return MatcherResult(
+         actual == expected,
+         "Response should have Content-Encoding: $expected but had: ${actual}. Response body: ${value.content}",
+         "Response should not have Content-Encoding $expected. Response body: ${value.content}"
+      )
+   }
+}
 
 infix fun HttpResponse.shouldHaveStatus(httpStatusCode: HttpStatusCode) = shouldHaveStatus(httpStatusCode.value)
 infix fun HttpResponse.shouldHaveStatus(code: Int) = this should haveStatus(code)
 infix fun HttpResponse.shouldNotHaveStatus(httpStatusCode: HttpStatusCode) = shouldNotHaveStatus(httpStatusCode.value)
 infix fun HttpResponse.shouldNotHaveStatus(code: Int) = this shouldNot haveStatus(code)
-fun haveStatus(code: Int) = object : Matcher<HttpResponse> {
+fun haveStatus(expected: Int) = object : Matcher<HttpResponse> {
    override fun test(value: HttpResponse): MatcherResult {
       return MatcherResult(
-         value.status.value == code,
-         "Response should have status $code but had status ${value.status.value}. Response body: ${value.content}",
-         "Response should not have status $code. Response body: ${value.content}"
+         value.status.value == expected,
+         "Response should have status $expected but had status ${value.status.value}. Response body: ${value.content}",
+         "Response should not have status $expected. Response body: ${value.content}"
       )
    }
 }
