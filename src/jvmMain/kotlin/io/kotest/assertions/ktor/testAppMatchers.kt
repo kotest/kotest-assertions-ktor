@@ -5,10 +5,50 @@ import io.kotest.matchers.MatcherResult
 import io.kotest.matchers.should
 import io.kotest.matchers.shouldNot
 import io.ktor.http.ContentType
+import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
 import io.ktor.response.ApplicationResponse
 import io.ktor.server.testing.TestApplicationResponse
 import io.ktor.server.testing.contentType
+
+infix fun TestApplicationResponse.shouldHaveETag(etag: String) = this should haveETag(etag)
+infix fun TestApplicationResponse.shouldNotHaveETag(etag: String) = this shouldNot haveETag(etag)
+fun haveETag(expected: String) = object : Matcher<TestApplicationResponse> {
+   override fun test(value: TestApplicationResponse): MatcherResult {
+      val actual = value.headers[HttpHeaders.ETag]
+      return MatcherResult(
+         actual == expected,
+         "Response should have ETag $expected but had ${actual}. Response body: ${value.content}",
+         "Response should not have ETag $expected. Response body: ${value.content}"
+      )
+   }
+}
+
+infix fun TestApplicationResponse.shouldHaveCacheControl(cacheControl: String) = this should haveCacheControl(cacheControl)
+infix fun TestApplicationResponse.shouldNotCacheControl(cacheControl: String) = this shouldNot haveCacheControl(cacheControl)
+fun haveCacheControl(expected: String) = object : Matcher<TestApplicationResponse> {
+   override fun test(value: TestApplicationResponse): MatcherResult {
+      val actual = value.headers[HttpHeaders.CacheControl]
+      return MatcherResult(
+         actual == expected,
+         "Response should have Cache-Control: $expected but had: ${actual}. Response body: ${value.content}",
+         "Response should not have Cache-Control $expected. Response body: ${value.content}"
+      )
+   }
+}
+
+infix fun TestApplicationResponse.shouldHaveContentEncoding(encoding: String) = this should haveContentEncoding(encoding)
+infix fun TestApplicationResponse.shouldNotHaveContentEncoding(encoding: String) = this shouldNot haveContentEncoding(encoding)
+fun haveContentEncoding(expected: String) = object : Matcher<TestApplicationResponse> {
+   override fun test(value: TestApplicationResponse): MatcherResult {
+      val actual = value.headers[HttpHeaders.ContentEncoding]
+      return MatcherResult(
+         actual == expected,
+         "Response should have Content-Encoding: $expected but had: ${actual}. Response body: ${value.content}",
+         "Response should not have Content-Encoding $expected. Response body: ${value.content}"
+      )
+   }
+}
 
 infix fun TestApplicationResponse.shouldHaveStatus(httpStatusCode: HttpStatusCode) = this.shouldHaveStatus(httpStatusCode.value)
 infix fun TestApplicationResponse.shouldHaveStatus(code: Int) = this should haveStatus(code)
