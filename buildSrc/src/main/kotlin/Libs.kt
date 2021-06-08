@@ -1,6 +1,6 @@
 object Libs {
 
-   const val kotlinVersion = "1.4.31"
+   const val kotlinVersion = "1.4.32"
    const val org = "io.kotest.extensions"
    const val dokkaVersion = "0.10.1"
 
@@ -12,7 +12,7 @@ object Libs {
    }
 
    object Ktor {
-      private const val version = "1.5.3"
+      private const val version = "1.6.0"
       const val serverCore = "io.ktor:ktor-server-core:$version"
       const val serverTestHost = "io.ktor:ktor-server-test-host:$version"
       const val clientCore = "io.ktor:ktor-client-core:$version"

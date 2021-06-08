@@ -4,8 +4,6 @@ apply(plugin = "org.jetbrains.dokka")
 
 apply(from = "$rootDir/signing-pom-details.gradle.kts")
 
-
-//val dokka = tasks.named("dokka")
 val javadoc = tasks.named("javadoc")
 
 // Create dokka Jar task from dokka task output
