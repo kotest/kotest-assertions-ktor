@@ -21,6 +21,12 @@ jobs:
             with:
                fetch-depth: 0
                ref: ${{ github.event.inputs.branch }}
+               
+         -  name: Setup JDK
+            uses: actions/setup-java@v3
+            with:
+               java-version: '8'
+               distribution: 'zulu'               
 
          -  name: deploy to sonatype
             run: ./gradlew publishMingwX64PublicationToDeployRepository
@@ -40,6 +46,12 @@ jobs:
             with:
                fetch-depth: 0
                ref: ${{ github.event.inputs.branch }}
+               
+         -  name: Setup JDK
+            uses: actions/setup-java@v3
+            with:
+               java-version: '8'
+               distribution: 'zulu'               
 
          -  name: publish macosx64 release
             run: ./gradlew publishMacosX64PublicationToDeployRepository
@@ -131,6 +143,12 @@ jobs:
             with:
                fetch-depth: 0
                ref: ${{ github.event.inputs.branch }}
+               
+         -  name: Setup JDK
+            uses: actions/setup-java@v3
+            with:
+               java-version: '8'
+               distribution: 'zulu'               
 
          -  name: publish multiplatform release
             run: ./gradlew publishKotlinMultiplatformPublicationToDeployRepository
