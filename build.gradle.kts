@@ -14,12 +14,8 @@ buildscript {
 plugins {
    java
    `java-library`
-   id("java-library")
-   id("maven-publish")
    signing
-   maven
    `maven-publish`
-   id("org.jetbrains.dokka") version Libs.dokkaVersion
    kotlin("multiplatform").version(Libs.kotlinVersion)
 }
 
