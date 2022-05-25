@@ -20,7 +20,8 @@ jobs:
          -  name: Setup JDK
             uses: actions/setup-java@v3
             with:
-               java-version: '11'
+               java-version: '8'
+               distribution: 'zulu'
 
          -  name: Run tests
             run: ./gradlew check --scan
@@ -51,6 +52,12 @@ jobs:
             uses: actions/checkout@v3
             with:
                fetch-depth: 0
+               
+         -  name: Setup JDK
+            uses: actions/setup-java@v3
+            with:
+               java-version: '8'
+               distribution: 'zulu'               
 
          -  name: Run macos tests
             run: ./gradlew macosX64Test --scan
@@ -114,6 +121,12 @@ jobs:
             uses: actions/checkout@v3
             with:
                fetch-depth: 0
+               
+         -  name: Setup JDK
+            uses: actions/setup-java@v3
+            with:
+               java-version: '8'
+               distribution: 'zulu'               
 
          -  name: Run tests
             run: ./gradlew mingwX64Test --scan
