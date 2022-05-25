@@ -25,8 +25,6 @@ repositories {
    maven {
       url = uri("https://oss.sonatype.org/content/repositories/snapshots")
    }
-   maven(url = "https://kotlin.bintray.com/kotlinx/") // soon will be just jcenter()
-   jcenter()
 }
 
 group = Libs.org
