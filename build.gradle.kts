@@ -1,6 +1,5 @@
 buildscript {
    repositories {
-      jcenter()
       mavenCentral()
       maven {
          url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
@@ -47,13 +46,12 @@ kotlin {
          nodejs()
       }
 
-      linuxX64()
+//      linuxX64()
 
       mingwX64()
 
       macosX64()
       tvos()
-//      watchos()
 
       iosX64()
       iosArm64()
@@ -96,9 +94,9 @@ kotlin {
          dependsOn(desktopMain)
       }
 
-      val linuxX64Main by getting {
-         dependsOn(desktopMain)
-      }
+//      val linuxX64Main by getting {
+//         dependsOn(desktopMain)
+//      }
 
       val iosX64Main by getting {
          dependsOn(desktopMain)
@@ -112,17 +110,8 @@ kotlin {
          dependsOn(desktopMain)
       }
 
-//      val watchosMain by getting {
-//         dependsOn(desktopMain)
-//      }
-
       val tvosMain by getting {
          dependsOn(desktopMain)
-      }
-
-      all {
-         languageSettings.useExperimentalAnnotation("kotlin.time.ExperimentalTime")
-         languageSettings.useExperimentalAnnotation("kotlin.experimental.ExperimentalTypeInference")
       }
    }
 }

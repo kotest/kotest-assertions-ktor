@@ -18,8 +18,8 @@ fun haveETag(expected: String) = object : Matcher<HttpResponse> {
       val actual = value.headers[HttpHeaders.ETag]
       return MatcherResult(
          actual == expected,
-         "Response should have ETag $expected but had ${actual}. Response body: ${value.content}",
-         "Response should not have ETag $expected. Response body: ${value.content}"
+         { "Response should have ETag $expected but had $actual." },
+         { "Response should not have ETag $expected." },
       )
    }
 }
@@ -31,8 +31,8 @@ fun haveCacheControl(expected: String) = object : Matcher<HttpResponse> {
       val actual = value.headers[HttpHeaders.CacheControl]
       return MatcherResult(
          actual == expected,
-         "Response should have Cache-Control: $expected but had: ${actual}. Response body: ${value.content}",
-         "Response should not have Cache-Control $expected. Response body: ${value.content}"
+         { "Response should have Cache-Control: $expected but had: ${actual}." },
+         { "Response should not have Cache-Control $expected." },
       )
    }
 }
@@ -44,8 +44,8 @@ fun haveContentEncoding(expected: String) = object : Matcher<HttpResponse> {
       val actual = value.headers[HttpHeaders.ContentEncoding]
       return MatcherResult(
          actual == expected,
-         "Response should have Content-Encoding: $expected but had: ${actual}. Response body: ${value.content}",
-         "Response should not have Content-Encoding $expected. Response body: ${value.content}"
+         { "Response should have Content-Encoding: $expected but had: ${actual}." },
+         { "Response should not have Content-Encoding $expected." },
       )
    }
 }
@@ -58,8 +58,8 @@ fun haveStatus(expected: Int) = object : Matcher<HttpResponse> {
    override fun test(value: HttpResponse): MatcherResult {
       return MatcherResult(
          value.status.value == expected,
-         "Response should have status $expected but had status ${value.status.value}. Response body: ${value.content}",
-         "Response should not have status $expected. Response body: ${value.content}"
+         { "Response should have status $expected but had status ${value.status.value}." },
+         { "Response should not have status $expected." },
       )
    }
 }
@@ -70,8 +70,8 @@ fun haveVersion(version: HttpProtocolVersion) = object : Matcher<HttpResponse> {
    override fun test(value: HttpResponse): MatcherResult {
       return MatcherResult(
          value.version == version,
-         "Response should have version $version but had version ${value.version}",
-         "Response should not have version $version"
+         { "Response should have version $version but had version ${value.version}" },
+         { "Response should not have version $version" },
       )
    }
 }
@@ -82,8 +82,8 @@ fun haveHeader(headerName: String, headerValue: String) = object : Matcher<HttpR
    override fun test(value: HttpResponse): MatcherResult {
       return MatcherResult(
          value.headers[headerName] == headerValue,
-         "Response should have header $headerName=$value but $headerName=${value.headers[headerName]}",
-         "Response should not have header $headerName=$value"
+         { "Response should have header $headerName=$value but $headerName=${value.headers[headerName]}" },
+         { "Response should not have header $headerName=$value" },
       )
    }
 }
@@ -94,8 +94,8 @@ fun haveContentType(contentType: ContentType) = object : Matcher<HttpResponse> {
    override fun test(value: HttpResponse): MatcherResult {
       return MatcherResult(
          value.contentType() == contentType,
-         "Response should have ContentType $contentType= but was ${value.contentType()}",
-         "Response should not have ContentType $contentType"
+         { "Response should have ContentType $contentType= but was ${value.contentType()}" },
+         { "Response should not have ContentType $contentType" },
       )
    }
 }
