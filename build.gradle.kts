@@ -46,7 +46,7 @@ kotlin {
          nodejs()
       }
 
-//      linuxX64()
+      linuxX64()
 
       mingwX64()
 
@@ -94,9 +94,9 @@ kotlin {
          dependsOn(desktopMain)
       }
 
-//      val linuxX64Main by getting {
-//         dependsOn(desktopMain)
-//      }
+      val linuxX64Main by getting {
+         dependsOn(desktopMain)
+      }
 
       val iosX64Main by getting {
          dependsOn(desktopMain)
