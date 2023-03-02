@@ -7,7 +7,7 @@ import io.kotest.matchers.shouldNot
 import io.ktor.http.ContentType
 import io.ktor.http.HttpHeaders
 import io.ktor.http.HttpStatusCode
-import io.ktor.response.ApplicationResponse
+import io.ktor.server.response.ApplicationResponse
 import io.ktor.server.testing.TestApplicationResponse
 import io.ktor.server.testing.contentType
 

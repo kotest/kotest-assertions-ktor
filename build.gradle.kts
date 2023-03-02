@@ -53,7 +53,6 @@ kotlin {
 
       macosX64()
       tvos()
-//      watchos()
 
       iosX64()
       iosArm64()
@@ -112,17 +111,8 @@ kotlin {
          dependsOn(desktopMain)
       }
 
-//      val watchosMain by getting {
-//         dependsOn(desktopMain)
-//      }
-
       val tvosMain by getting {
          dependsOn(desktopMain)
-      }
-
-      all {
-         languageSettings.useExperimentalAnnotation("kotlin.time.ExperimentalTime")
-         languageSettings.useExperimentalAnnotation("kotlin.experimental.ExperimentalTypeInference")
       }
    }
 }
