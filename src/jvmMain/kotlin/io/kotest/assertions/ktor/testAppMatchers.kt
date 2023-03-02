@@ -18,14 +18,18 @@ fun haveETag(expected: String) = object : Matcher<TestApplicationResponse> {
       val actual = value.headers[HttpHeaders.ETag]
       return MatcherResult(
          actual == expected,
-         "Response should have ETag $expected but had ${actual}. Response body: ${value.content}",
-         "Response should not have ETag $expected. Response body: ${value.content}"
+         { "Response should have ETag $expected but had ${actual}. Response body: ${value.content}" },
+         { "Response should not have ETag $expected. Response body: ${value.content}" },
       )
    }
 }
 
-infix fun TestApplicationResponse.shouldHaveCacheControl(cacheControl: String) = this should haveCacheControl(cacheControl)
-infix fun TestApplicationResponse.shouldNotCacheControl(cacheControl: String) = this shouldNot haveCacheControl(cacheControl)
+infix fun TestApplicationResponse.shouldHaveCacheControl(cacheControl: String) =
+   this should haveCacheControl(cacheControl)
+
+infix fun TestApplicationResponse.shouldNotCacheControl(cacheControl: String) =
+   this shouldNot haveCacheControl(cacheControl)
+
 fun haveCacheControl(expected: String) = object : Matcher<TestApplicationResponse> {
    override fun test(value: TestApplicationResponse): MatcherResult {
       val actual = value.headers[HttpHeaders.CacheControl]
@@ -37,43 +41,51 @@ fun haveCacheControl(expected: String) = object : Matcher<TestApplicationRespons
    }
 }
 
-infix fun TestApplicationResponse.shouldHaveContentEncoding(encoding: String) = this should haveContentEncoding(encoding)
-infix fun TestApplicationResponse.shouldNotHaveContentEncoding(encoding: String) = this shouldNot haveContentEncoding(encoding)
+infix fun TestApplicationResponse.shouldHaveContentEncoding(encoding: String) =
+   this should haveContentEncoding(encoding)
+
+infix fun TestApplicationResponse.shouldNotHaveContentEncoding(encoding: String) =
+   this shouldNot haveContentEncoding(encoding)
+
 fun haveContentEncoding(expected: String) = object : Matcher<TestApplicationResponse> {
    override fun test(value: TestApplicationResponse): MatcherResult {
       val actual = value.headers[HttpHeaders.ContentEncoding]
       return MatcherResult(
          actual == expected,
-         "Response should have Content-Encoding: $expected but had: ${actual}. Response body: ${value.content}",
-         "Response should not have Content-Encoding $expected. Response body: ${value.content}"
+         { "Response should have Content-Encoding: $expected but had: ${actual}. Response body: ${value.content}" },
+         { "Response should not have Content-Encoding $expected. Response body: ${value.content}" },
       )
    }
 }
 
-infix fun TestApplicationResponse.shouldHaveStatus(httpStatusCode: HttpStatusCode) = this.shouldHaveStatus(httpStatusCode.value)
+infix fun TestApplicationResponse.shouldHaveStatus(httpStatusCode: HttpStatusCode) =
+   this.shouldHaveStatus(httpStatusCode.value)
+
 infix fun TestApplicationResponse.shouldHaveStatus(code: Int) = this should haveStatus(code)
-infix fun TestApplicationResponse.shouldNotHaveStatus(httpStatusCode: HttpStatusCode) = this.shouldNotHaveStatus(httpStatusCode.value)
+infix fun TestApplicationResponse.shouldNotHaveStatus(httpStatusCode: HttpStatusCode) =
+   this.shouldNotHaveStatus(httpStatusCode.value)
+
 infix fun TestApplicationResponse.shouldNotHaveStatus(code: Int) = this shouldNot haveStatus(code)
 fun haveStatus(code: Int) = object : Matcher<TestApplicationResponse> {
-  override fun test(value: TestApplicationResponse): MatcherResult {
-    return MatcherResult(
-        value.status()?.value == code,
-        "Response should have status $code but had status ${value.status()?.value}. Response body: ${value.content}",
-        "Response should not have status $code. Response body: ${value.content}"
-    )
-  }
+   override fun test(value: TestApplicationResponse): MatcherResult {
+      return MatcherResult(
+         value.status()?.value == code,
+         { "Response should have status $code but had status ${value.status()?.value}. Response body: ${value.content}" },
+         { "Response should not have status $code. Response body: ${value.content}" },
+      )
+   }
 }
 
 infix fun TestApplicationResponse.shouldHaveContent(content: String) = this should haveContent(content)
 infix fun TestApplicationResponse.shouldNotHaveContent(content: String) = this shouldNot haveContent(content)
 fun haveContent(content: String) = object : Matcher<TestApplicationResponse> {
-  override fun test(value: TestApplicationResponse): MatcherResult {
-    return MatcherResult(
-        value.content == content,
-        "Response should have content $content but had content ${value.content}",
-        "Response should not have content $content"
-    )
-  }
+   override fun test(value: TestApplicationResponse): MatcherResult {
+      return MatcherResult(
+         value.content == content,
+         { "Response should have content $content but had content ${value.content}" },
+         { "Response should not have content $content" },
+      )
+   }
 }
 
 fun TestApplicationResponse.shouldHaveContentType(contentType: ContentType) =
@@ -86,8 +98,8 @@ fun haveContentType(contentType: ContentType) = object : Matcher<TestApplication
    override fun test(value: TestApplicationResponse): MatcherResult {
       return MatcherResult(
          value.contentType() == contentType,
-         "Response should have ContentType $contentType but was ${value.contentType()}",
-         "Response should not have ContentType $contentType"
+         { "Response should have ContentType $contentType but was ${value.contentType()}" },
+         { "Response should not have ContentType $contentType" },
       )
    }
 }
@@ -98,26 +110,30 @@ fun haveHeader(headerName: String, headerValue: String) = object : Matcher<TestA
    override fun test(value: TestApplicationResponse): MatcherResult {
       return MatcherResult(
          value.headers[headerName] == headerValue,
-         "Response should have header $headerName=$headerValue but $headerName=${value.headers[headerName]}",
-         "Response should not have header $headerName=$headerValue"
+         { "Response should have header $headerName=$headerValue but $headerName=${value.headers[headerName]}" },
+         { "Response should not have header $headerName=$headerValue" },
       )
    }
 }
 
-fun TestApplicationResponse.shouldHaveCookie(name: String, cookieValue: String? = null) = this should haveCookie(name, cookieValue)
-fun TestApplicationResponse.shouldNotHaveCookie(name: String, cookieValue: String? = null) = this shouldNot haveCookie(name, cookieValue)
+fun TestApplicationResponse.shouldHaveCookie(name: String, cookieValue: String? = null) =
+   this should haveCookie(name, cookieValue)
+
+fun TestApplicationResponse.shouldNotHaveCookie(name: String, cookieValue: String? = null) =
+   this shouldNot haveCookie(name, cookieValue)
+
 fun haveCookie(name: String, cookieValue: String? = null) = object : Matcher<ApplicationResponse> {
-  override fun test(value: ApplicationResponse): MatcherResult {
+   override fun test(value: ApplicationResponse): MatcherResult {
 
-    val passed = when (cookieValue) {
-      null -> value.cookies[name] != null
-      else -> value.cookies[name]?.value == cookieValue
-    }
+      val passed = when (cookieValue) {
+         null -> value.cookies[name] != null
+         else -> value.cookies[name]?.value == cookieValue
+      }
 
-    return MatcherResult(
-        passed,
-        "Response should have cookie with name $name",
-        "Response should have cookie with name $name"
-    )
-  }
+      return MatcherResult(
+         passed,
+         { "Response should have cookie with name $name" },
+         { "Response should have cookie with name $name" },
+      )
+   }
 }
