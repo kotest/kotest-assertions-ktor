@@ -18,8 +18,8 @@ fun haveETag(expected: String) = object : Matcher<TestApplicationResponse> {
       val actual = value.headers[HttpHeaders.ETag]
       return MatcherResult(
          actual == expected,
-         { "Response should have ETag $expected but had ${actual}. Response body: ${value.content}" },
-         { "Response should not have ETag $expected. Response body: ${value.content}" },
+         { "Response should have ETag $expected but had ${actual}." },
+         { "Response should not have ETag $expected." },
       )
    }
 }
@@ -35,8 +35,8 @@ fun haveCacheControl(expected: String) = object : Matcher<TestApplicationRespons
       val actual = value.headers[HttpHeaders.CacheControl]
       return MatcherResult(
          actual == expected,
-         "Response should have Cache-Control: $expected but had: ${actual}. Response body: ${value.content}",
-         "Response should not have Cache-Control $expected. Response body: ${value.content}"
+         "Response should have Cache-Control: $expected but had: ${actual}.",
+         "Response should not have Cache-Control $expected."
       )
    }
 }
@@ -52,8 +52,8 @@ fun haveContentEncoding(expected: String) = object : Matcher<TestApplicationResp
       val actual = value.headers[HttpHeaders.ContentEncoding]
       return MatcherResult(
          actual == expected,
-         { "Response should have Content-Encoding: $expected but had: ${actual}. Response body: ${value.content}" },
-         { "Response should not have Content-Encoding $expected. Response body: ${value.content}" },
+         { "Response should have Content-Encoding: $expected but had: ${actual}." },
+         { "Response should not have Content-Encoding $expected." },
       )
    }
 }
@@ -70,8 +70,8 @@ fun haveStatus(code: Int) = object : Matcher<TestApplicationResponse> {
    override fun test(value: TestApplicationResponse): MatcherResult {
       return MatcherResult(
          value.status()?.value == code,
-         { "Response should have status $code but had status ${value.status()?.value}. Response body: ${value.content}" },
-         { "Response should not have status $code. Response body: ${value.content}" },
+         { "Response should have status $code but had status ${value.status()?.value}." },
+         { "Response should not have status $code." },
       )
    }
 }
