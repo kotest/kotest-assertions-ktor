@@ -21,12 +21,12 @@ jobs:
             with:
                fetch-depth: 0
                ref: ${{ github.event.inputs.branch }}
-               
+
          -  name: Setup JDK
             uses: actions/setup-java@v3
             with:
                java-version: '8'
-               distribution: 'zulu'               
+               distribution: 'zulu'
 
          -  name: deploy to sonatype
             run: ./gradlew publishMingwX64PublicationToDeployRepository
@@ -46,15 +46,24 @@ jobs:
             with:
                fetch-depth: 0
                ref: ${{ github.event.inputs.branch }}
-               
+
          -  name: Setup JDK
             uses: actions/setup-java@v3
             with:
                java-version: '8'
-               distribution: 'zulu'               
+               distribution: 'zulu'
 
          -  name: publish macosx64 release
             run: ./gradlew publishMacosX64PublicationToDeployRepository
+            env:
+               RELEASE_VERSION: ${{ github.event.inputs.version }}
+               OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+               OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+               ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
+               ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
+
+         -  name: publish macosArm64 release
+            run: ./gradlew publishMacosArm64PublicationToDeployRepository
             env:
                RELEASE_VERSION: ${{ github.event.inputs.version }}
                OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
@@ -80,32 +89,41 @@ jobs:
                ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
                ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
 
-         #         -  name: publish watchosX64 release
-         #            run: ./gradlew publishWatchosX64PublicationToDeployRepository
-         #            env:
-         #               RELEASE_VERSION: ${{ github.event.inputs.version }}
-         #               OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-         #               OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-         #               ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
-         #               ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
+         -  name: publish watchosX86 release
+            run: ./gradlew publishWatchosX86PublicationToDeployRepository
+            env:
+               RELEASE_VERSION: ${{ github.event.inputs.version }}
+               OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+               OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+               ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
+               ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
 
-#         -  name: publish watchosArm32 release
-#            run: ./gradlew publishWatchosArm32PublicationToDeployRepository
-#            env:
-#               RELEASE_VERSION: ${{ github.event.inputs.version }}
-#               OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-#               OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-#               ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
-#               ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
-#
-#         -  name: publish watchosArm64 release
-#            run: ./gradlew publishWatchosArm64PublicationToDeployRepository
-#            env:
-#               RELEASE_VERSION: ${{ github.event.inputs.version }}
-#               OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-#               OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-#               ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
-#               ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
+         -  name: publish watchosX64 release
+            run: ./gradlew publishWatchosX64PublicationToDeployRepository
+            env:
+               RELEASE_VERSION: ${{ github.event.inputs.version }}
+               OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+               OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+               ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
+               ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
+
+         -  name: publish watchosArm32 release
+            run: ./gradlew publishWatchosArm32PublicationToDeployRepository
+            env:
+               RELEASE_VERSION: ${{ github.event.inputs.version }}
+               OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+               OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+               ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
+               ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
+
+         -  name: publish watchosArm64 release
+            run: ./gradlew publishWatchosArm64PublicationToDeployRepository
+            env:
+               RELEASE_VERSION: ${{ github.event.inputs.version }}
+               OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+               OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+               ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
+               ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
 
          -  name: publish iosX64 release
             run: ./gradlew publishIosX64PublicationToDeployRepository
@@ -134,6 +152,15 @@ jobs:
                ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
                ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
 
+         -  name: publish iosArm32 release
+            run: ./gradlew publishIosSimulatorArm64PublicationToDeployRepository
+            env:
+               RELEASE_VERSION: ${{ github.event.inputs.version }}
+               OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+               OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+               ORG_GRADLE_PROJECT_signingKey: ${{ secrets.SIGNING_KEY }}
+               ORG_GRADLE_PROJECT_signingPassword: ${{ secrets.SIGNING_PASSWORD }}
+
    publish_linux_and_common:
       runs-on: ubuntu-latest
 
@@ -143,12 +170,12 @@ jobs:
             with:
                fetch-depth: 0
                ref: ${{ github.event.inputs.branch }}
-               
+
          -  name: Setup JDK
             uses: actions/setup-java@v3
             with:
                java-version: '8'
-               distribution: 'zulu'               
+               distribution: 'zulu'
 
          -  name: publish multiplatform release
             run: ./gradlew publishKotlinMultiplatformPublicationToDeployRepository
