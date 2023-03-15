@@ -56,6 +56,7 @@ kotlin {
       iosX64()
       iosArm64()
       iosArm32()
+      iosSimulatorArm64()
    }
 
    sourceSets {
@@ -107,6 +108,10 @@ kotlin {
       }
 
       val iosArm32Main by getting {
+         dependsOn(desktopMain)
+      }
+      
+      val iosSimulatorArm64Main by getting {
          dependsOn(desktopMain)
       }
 
