@@ -19,6 +19,11 @@ testImplementation("io.kotest.extensions:kotest-assertions-ktor:version")
 
 ## Changelog
 
+### 2.0.0
+
+* Updated Ktor to 2.2.3
+* Added new native targets: macosArm64, iosSimulatorArm64, watchosX86, watchosX64,watchosArm32, watchosArm64
+
 ### 1.0.3
 
 * Added matchers for Cache-Control, Content-Encoding and ETag
