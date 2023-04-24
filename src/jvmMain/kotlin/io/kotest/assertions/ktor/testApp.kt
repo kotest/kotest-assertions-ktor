@@ -17,6 +17,19 @@ class Configure {
    fun server(block: Application.() -> Unit) {
       configureServer = block
    }
+
+   suspend fun testApplication(test: suspend ApplicationTest.() -> Unit) {
+      val configure = this
+      io.ktor.server.testing.testApplication {
+         application {
+            configure.configureServer(this)
+         }
+         val client = createClient {
+            configure.configureClient(this)
+         }
+         ApplicationTest(client).test()
+      }
+   }
 }
 
 fun configure(block: Configure.() -> Unit): Configure {
@@ -26,16 +39,3 @@ fun configure(block: Configure.() -> Unit): Configure {
 }
 
 class ApplicationTest(val client: HttpClient)
-
-suspend fun Configure.testApplication(test: suspend ApplicationTest.() -> Unit) {
-   val configure = this
-   io.ktor.server.testing.testApplication {
-      application {
-         configure.configureServer(this)
-      }
-      val client = createClient {
-         configure.configureClient(this)
-      }
-      ApplicationTest(client).test()
-   }
-}
