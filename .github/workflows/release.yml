@@ -25,7 +25,7 @@ jobs:
          -  name: Setup JDK
             uses: actions/setup-java@v3
             with:
-               java-version: '8'
+               java-version: '11'
                distribution: 'zulu'
 
          -  name: deploy to sonatype
@@ -47,7 +47,7 @@ jobs:
          -  name: Setup JDK
             uses: actions/setup-java@v3
             with:
-               java-version: '8'
+               java-version: '11'
                distribution: 'zulu'
 
          -  name: publish macosx64 release
@@ -100,7 +100,7 @@ jobs:
          -  name: Setup JDK
             uses: actions/setup-java@v3
             with:
-               java-version: '8'
+               java-version: '11'
                distribution: 'zulu'
 
          -  name: publish multiplatform release
