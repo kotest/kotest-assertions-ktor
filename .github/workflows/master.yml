@@ -13,7 +13,7 @@ jobs:
       runs-on: ubuntu-latest
       steps:
          -  name: Checkout the repo
-            uses: actions/checkout@v3
+            uses: actions/checkout@v4
             with:
                fetch-depth: 0
 
@@ -59,7 +59,7 @@ jobs:
                - watchosX64Test publishWatchosX64PublicationToDeployRepository
       steps:
          -  name: Checkout the repo
-            uses: actions/checkout@v3
+            uses: actions/checkout@v4
             with:
                fetch-depth: 0
 
@@ -87,7 +87,7 @@ jobs:
       runs-on: windows-latest
       steps:
          -  name: Checkout the repo
-            uses: actions/checkout@v3
+            uses: actions/checkout@v4
             with:
                fetch-depth: 0
 
