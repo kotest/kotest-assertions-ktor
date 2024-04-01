@@ -5,7 +5,7 @@ object Libs {
    const val dokkaVersion = "0.10.1"
 
    object Kotest {
-      private const val version = "5.8.0"
+      private const val version = "5.8.1"
       const val assertionsShared = "io.kotest:kotest-assertions-shared:$version"
       const val api = "io.kotest:kotest-framework-api:$version"
       const val junit5 = "io.kotest:kotest-runner-junit5-jvm:$version"
