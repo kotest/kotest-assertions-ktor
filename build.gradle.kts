@@ -86,6 +86,7 @@ kotlin {
          dependsOn(jvmMain)
          dependencies {
             implementation(Libs.Kotest.junit5)
+            implementation(Libs.Kotest.datatest)
          }
       }
 
@@ -136,7 +137,7 @@ kotlin {
       val iosArm32Main by getting {
          dependsOn(desktopMain)
       }
-      
+
       val iosSimulatorArm64Main by getting {
          dependsOn(desktopMain)
       }
