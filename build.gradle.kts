@@ -3,6 +3,7 @@ buildscript {
       mavenCentral()
       maven {
          url = uri("https://oss.sonatype.org/content/repositories/snapshots/")
+         mavenContent { snapshotsOnly() }
       }
       maven {
          url = uri("https://plugins.gradle.org/m2/")
@@ -15,18 +16,19 @@ plugins {
    `java-library`
    signing
    `maven-publish`
-   kotlin("multiplatform").version(Libs.kotlinVersion)
+   kotlin("multiplatform") version libs.versions.kotlin
 }
 
 repositories {
-   mavenLocal()
    mavenCentral()
    maven {
       url = uri("https://oss.sonatype.org/content/repositories/snapshots")
+      mavenContent { snapshotsOnly() }
    }
+   mavenLocal()
 }
 
-group = Libs.org
+group = "io.kotest.extensions"
 version = Ci.version
 
 kotlin {
@@ -69,23 +71,23 @@ kotlin {
 
       val commonMain by getting {
          dependencies {
-            implementation(Libs.Kotest.assertionsShared)
-            implementation(Libs.Ktor.clientCore)
+            implementation(libs.kotest.assertionsShared)
+            implementation(libs.ktorClient.core)
          }
       }
 
       val jvmMain by getting {
          dependsOn(commonMain)
          dependencies {
-            implementation(Libs.Ktor.serverCore)
-            implementation(Libs.Ktor.serverTestHost)
+            implementation(libs.ktorServer.core)
+            implementation(libs.ktorServer.testHost)
          }
       }
 
       val jvmTest by getting {
          dependsOn(jvmMain)
          dependencies {
-            implementation(Libs.Kotest.junit5)
+            implementation(libs.kotest.runnerJunit5)
          }
       }
 
@@ -136,7 +138,7 @@ kotlin {
       val iosArm32Main by getting {
          dependsOn(desktopMain)
       }
-      
+
       val iosSimulatorArm64Main by getting {
          dependsOn(desktopMain)
       }

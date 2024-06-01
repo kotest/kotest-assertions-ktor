@@ -1,0 +1,14 @@
+[versions]
+kotlin = "1.7.21"
+kotest = "5.8.1"
+ktor = "2.3.10"
+dokka = "0.10.1"
+
+[libraries]
+kotest-assertionsShared = { module = "io.kotest:kotest-assertions-shared", version.ref = "kotest" }
+kotest-frameworkApi = { module = "io.kotest:kotest-framework-api", version.ref = "kotest" }
+kotest-runnerJunit5 = { module = "io.kotest:kotest-runner-junit5", version.ref = "kotest" }
+
+ktorServer-core = { module = "io.ktor:ktor-server-core", version.ref = "ktor" }
+ktorServer-testHost = { module = "io.ktor:ktor-server-test-host", version.ref = "ktor" }
+ktorClient-core = { module = "io.ktor:ktor-client-core", version.ref = "ktor" }
