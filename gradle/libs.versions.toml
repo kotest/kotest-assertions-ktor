@@ -1,5 +1,5 @@
 [versions]
-kotlin = "1.8.23"
+kotlin = "1.9.25"
 kotest = "5.8.1"
 ktor = "2.3.10"
 dokka = "0.10.1"

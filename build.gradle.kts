@@ -32,124 +32,61 @@ group = "io.kotest.extensions"
 version = Ci.version
 
 kotlin {
-
-   targets {
-
-      jvm {
-         compilations.all {
-            kotlinOptions {
-               jvmTarget = "1.8"
-            }
+   jvm {
+      compilations.all {
+         kotlinOptions {
+            jvmTarget = "1.8"
          }
       }
-
-      js(IR) {
-         browser()
-         nodejs()
-      }
-
-      linuxX64()
-
-      mingwX64()
-
-      watchosX64()
-      watchosX86()
-      watchosArm32()
-      watchosArm64()
-
-      macosArm64()
-      macosX64()
-      tvos()
-
-      iosX64()
-      iosArm64()
-      iosArm32()
-      iosSimulatorArm64()
    }
 
-   sourceSets {
+   js(IR) {
+      browser()
+      nodejs()
+   }
 
-      val commonMain by getting {
+   linuxX64()
+
+   mingwX64()
+
+   watchosX64()
+   watchosArm32()
+   watchosArm64()
+
+   macosArm64()
+   macosX64()
+   tvosX64()
+   tvosArm64()
+   tvosSimulatorArm64()
+
+   iosX64()
+   iosArm64()
+   iosSimulatorArm64()
+
+   sourceSets {
+      commonMain {
          dependencies {
             implementation(libs.kotest.assertionsShared)
             implementation(libs.ktorClient.core)
          }
       }
 
-      val jvmMain by getting {
-         dependsOn(commonMain)
+      jvmMain {
          dependencies {
             implementation(libs.ktorServer.core)
             implementation(libs.ktorServer.testHost)
          }
       }
 
-      val jvmTest by getting {
-         dependsOn(jvmMain)
+      jvmTest {
          dependencies {
             implementation(libs.kotest.runnerJunit5)
          }
       }
-
-      val desktopMain by creating {
-         dependsOn(commonMain)
-      }
-
-      val watchosX86Main by getting {
-         dependsOn(desktopMain)
-      }
-
-      val watchosX64Main by getting {
-         dependsOn(desktopMain)
-      }
-
-      val watchosArm32Main by getting {
-         dependsOn(desktopMain)
-      }
-
-      val watchosArm64Main by getting {
-         dependsOn(desktopMain)
-      }
-
-      val macosArm64Main by getting {
-         dependsOn(desktopMain)
-      }
-
-      val macosX64Main by getting {
-         dependsOn(desktopMain)
-      }
-
-      val mingwX64Main by getting {
-         dependsOn(desktopMain)
-      }
-
-      val linuxX64Main by getting {
-         dependsOn(desktopMain)
-      }
-
-      val iosX64Main by getting {
-         dependsOn(desktopMain)
-      }
-
-      val iosArm64Main by getting {
-         dependsOn(desktopMain)
-      }
-
-      val iosArm32Main by getting {
-         dependsOn(desktopMain)
-      }
-
-      val iosSimulatorArm64Main by getting {
-         dependsOn(desktopMain)
-      }
-
-      val tvosMain by getting {
-         dependsOn(desktopMain)
-      }
    }
 }
 
-tasks.named<Test>("jvmTest") {
+tasks.named<Test>("jvmTest").configure {
    useJUnitPlatform()
    filter {
       isFailOnNoMatchingTests = false
