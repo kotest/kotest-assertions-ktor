@@ -1,7 +1,7 @@
 [versions]
 kotlin = "1.9.25"
 kotest = "5.8.1"
-ktor = "2.3.10"
+ktor = "2.3.12"
 dokka = "0.10.1"
 
 [libraries]
