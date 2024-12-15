@@ -1,5 +1,7 @@
 # kotest-assertions-ktor
 
+### This project has been promoted to the top level Kotest repo. Please follow development and raise issues on that project.
+
 Kotest assertions for [Ktor](https://ktor.io/).
 
 See [docs](https://kotest.io/docs/assertions/ktor-matchers.html).
